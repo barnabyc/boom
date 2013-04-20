@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Your Game</title>
+
+        <meta name="viewport" content="user-scalable=no, maximum-scale=1.0, width=device-width, height=device-height">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <style>
+        #scene {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+
+        #center1 {
+          width: 100%;
+          height: 80%;
+          background-color: #000;
+        }
+
+        #stats {
+          width: 100%;
+          height: 20%;
+          background-color:#fff;
+        }
+        </style>
+
+        <!-- Production mode (minified and packed) -->
+        <!--<script type="text/javascript" src="/playcraftjs/dist/playcraft-0.5.11.min.js"></script>-->
+
+        <script type="text/javascript" src="/lib/playcraft.js"></script>
+        <script type="text/javascript">
+          pc.start(
+            'pcGameCanvas',
+            'TheGame',
+            'game/',
+            [
+              // add extra files here, e.g.
+              // 'components/mycomponent.js',
+              'scenes/world.js',
+              'scenes/title.js',
+              'game.js'
+            ],
+            // the relative path all files are prepended with
+            // (this is what the server needs to be configured
+            // to provide static files to
+            '/lib/'
+          );
+        </script>
+    </head>
+    <body>
+        <div id="scene">
+            <div id="center1">
+                <canvas id="pcGameCanvas"></canvas>
+            </div>
+
+            <div id="stats">
+                <canvas id="pcDebug"></canvas>
+            </div>
+        </div>
+    </body>
+</html>
