@@ -37,7 +37,7 @@ TheGame = pc.Game.extend('TheGame',
       this.addScene(this.gameScene);
 
       // create the menu scene (but don't make it active)
-      this.menuScene = new TitleScene();
+      this.titleScene = new TitleScene();
       this.addScene(this.titleScene, false);
 
       // resources are all ready, start the main game scene

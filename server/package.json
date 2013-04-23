@@ -1,0 +1,10 @@
+{
+  "name": "boom-server",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "requirejs": "~2.1.5",
+    "ejs": "~0.8.3"
+  }
+}
