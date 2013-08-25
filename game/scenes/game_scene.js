@@ -21,18 +21,21 @@ GameScene = pc.Scene.extend('GameScene', {}, {
     musicPlaying: true,
     fireSound: null,
 
+    lastFireTime: 0,
+    fireDelay: 150,
+
     init: function() {
         this._super();
 
         // start the music
-        if (pc.device.soundEnabled) {
-            this.fireSound = pc.device.loader.get('fire').resource;
-            this.fireSound.setVolume(0.2);
-            this.music = pc.device.loader.get('music1').resource;
-            this.music.setVolume(0.2);
-            // this.music.play(true);
-            this.musicPlaying = true;
-        }
+        // if (pc.device.soundEnabled) {
+        //     this.fireSound = pc.device.loader.get('fire').resource;
+        //     this.fireSound.setVolume(0.2);
+        //     this.music = pc.device.loader.get('music1').resource;
+        //     this.music.setVolume(0.2);
+        //     // this.music.play(true);
+        //     this.musicPlaying = true;
+        // }
 
         // setup the sprites used in the game scene
         this.asteroidSheet = new pc.SpriteSheet({
@@ -105,10 +108,15 @@ GameScene = pc.Scene.extend('GameScene', {}, {
             frameWidth: 512,
             frameHeight: 512
         });
-        var tileMap = new pc.TileMap(new pc.TileSet(this.starSheet),
-        2 + (pc.device.canvasWidth / this.starSheet.frameWidth),
-        2 + (pc.device.canvasHeight / this.starSheet.frameHeight),
-        this.starSheet.frameHeight, this.starSheet.frameHeight);
+
+        var tileMap = new pc.TileMap(
+            new pc.TileSet(this.starSheet),
+            2 + (pc.device.canvasWidth  / this.starSheet.frameWidth ),
+            2 + (pc.device.canvasHeight / this.starSheet.frameHeight),
+            this.starSheet.frameHeight,
+            this.starSheet.frameHeight
+        );
+
         tileMap.generate(0);
         tileMap.setTile(1, 0, 1);
         this.starsLayer = this.addLayer(new pc.TileLayer('star layer', false, tileMap));
@@ -119,7 +127,7 @@ GameScene = pc.Scene.extend('GameScene', {}, {
         this.gameLayer = this.addLayer(new pc.EntityLayer('game layer', 10000, 10000));
 
         // fire up the systems we need for the game layer
-        this.gameLayer.addSystem(new GamePhysics({
+        this.gameLayer.addSystem(new PhysicsSystem({
             gravity: {
                 x: 0,
                 y: 0
@@ -547,9 +555,6 @@ GameScene = pc.Scene.extend('GameScene', {}, {
         }
     },
 
-    lastFireTime: 0,
-    fireDelay: 150,
-
     process: function() {
         if (!pc.device.loader.finished) return;
         if (!this.asteroidsLeft) {
@@ -576,7 +581,7 @@ GameScene = pc.Scene.extend('GameScene', {}, {
         if (pc.device.input.isInputState(this, 'firing')) {
             var sinceLastFire = pc.device.now - this.lastFireTime;
             if (sinceLastFire > this.fireDelay) {
-                this.fireSound.play(false);
+                // this.fireSound.play(false);
                 var tc = this.playerSpatial.getCenterPos();
                 // offset the size of the bullet (the center of the 30x30 image)
                 tc.subtract(15, 15);

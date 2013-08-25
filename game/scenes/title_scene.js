@@ -5,7 +5,7 @@ TitleScene = pc.Scene.extend('TitleScene',
         menuItems:null,
         currentMenuSelection: 0,
 
-        init:function ()
+        init: function ()
         {
             this._super();
 
@@ -85,7 +85,7 @@ TitleScene = pc.Scene.extend('TitleScene',
         },
 
         // handle menu actions
-        onAction:function (actionName, event, pos, uiTarget)
+        onAction: function (actionName, event, pos, uiTarget)
         {
             if (actionName === 'execute')
             {
@@ -120,7 +120,7 @@ TitleScene = pc.Scene.extend('TitleScene',
 
         },
 
-        process:function ()
+        process: function ()
         {
             // clear the background
             pc.device.ctx.clearRect(0, 0, pc.device.canvasWidth, pc.device.canvasHeight);
